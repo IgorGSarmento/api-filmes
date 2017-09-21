@@ -36,7 +36,7 @@ class FilmesController extends Controller
 
         var_dump($filme);
 
-        //$collection->insert($filme);
+        $collection->insert($filme);
 
         return Rs::p(1,'Filme adicionado',$filme);
     }
@@ -52,7 +52,7 @@ class FilmesController extends Controller
 
         var_dump($filme);
 
-        $collection->update(array('titulo'=>$film), array('$set'=>array($filme)));
+        $collection->update(array('titulo'=>$film),$filme);
 
         return Rs::p(1,'Filme atualizado',$filme);
     }
