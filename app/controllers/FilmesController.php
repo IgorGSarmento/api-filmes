@@ -35,7 +35,7 @@ class FilmesController extends Controller
         $start = new MongoDate(strtotime($dtaI));
         $end = new MongoDate(strtotime($dtaF));
         
-        $filmes = $collection->find(array("dta_estreia" => array('$gte' => $start, '$lte' => $end)));
+        $filmes = $collection->find(array('dta_estreia' => array('$gte' => $start, '$lte' => $end)));
 
         $filmeQuery = array();
 
@@ -46,8 +46,10 @@ class FilmesController extends Controller
         for($i=0;$i < count($filmeQuery); $i++) {
             $filmeQuery[$i]['dta_estreia'] = date('d-m-Y', $filmeQuery[$i]['dta_estreia']->sec);
         }
-        
-        return Rs::p(1,'Filmes no intervalo',$filmeQuery);
+
+        $films = (object) $filmeQuery;
+
+        return Rs::p(1,'Filmes no intervalo', $films);
     }
 
     public function add()
