@@ -34,32 +34,20 @@ class FilmesController extends Controller
 
         $start = new MongoDate(strtotime($dtaI));
         $end = new MongoDate(strtotime($dtaF));
-
-        var_dump($start);
-
-        var_dump($end);
-
-        $rangeQuery = array(
-            'dta_estreia' => array(
-                array(
-                    '$gt' => $start
-                ),
-                array(
-                    '$lt' => $end
-                ),              
-            )
-        );
-
-        var_dump($rangeQuery);
-
-        $filmes = Filmes::find($rangeQuery);
         
-        //$filmes = $collection->find(array("dta_estreia" => array('$gt' => $start, '$lte' => $end)));
-        //$filmes = Filmes::find(array('dta_estreia' => array('$eq' => array('$gte' => $start, '$lte' => $end))));
+        $filmes = $collection->find(array("dta_estreia" => array('$gte' => $start, '$lte' => $end)));
 
-        $newdate = date('d-m-Y', $d->sec);
+        $filmeQuery = array();
+
+        foreach ($filmes as $doc) {
+            array_push($filmeQuery, $doc);
+        }
+
+        for($i=0;$i < count($filmeQuery); $i++) {
+            $filmeQuery[$i]['dta_estreia'] = date('d-m-Y', $filmeQuery[$i]['dta_estreia']->sec);
+        }
         
-        return Rs::p(1,'Filmes no intervalo',$filmes);
+        return Rs::p(1,'Filmes no intervalo',$filmeQuery);
     }
 
     public function add()
