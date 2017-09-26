@@ -24,6 +24,7 @@ class FilmesController extends Controller
             );
 
     	$filme = Filmes::find(array($filmeQuery));
+
         return Rs::p(1,'Filme encontrado',$filme);
     }
 
@@ -59,13 +60,9 @@ class FilmesController extends Controller
 
     	$filme = $this->request->getPost();
 
-        var_dump($filme);
-
         $d = new MongoDate(strtotime($filme['dta_estreia']));
 
         $filme['dta_estreia'] = $d;
-
-        var_dump($filme['dta_estreia']);
 
         $collection->insert($filme);
 
@@ -77,13 +74,11 @@ class FilmesController extends Controller
         $m = new MongoClient();
         $collection = $m->selectDB('apifilmes')->selectCollection('filmes');
 
-        var_dump($film);
-
         $filme = $this->request->getPut();
 
-        var_dump($filme);
+        //$collection->update(array('titulo'=>$film),$filme);
 
-        $collection->update(array('titulo'=>$film),$filme);
+        $collection->update(array('_id' => new MongoId($film)),$filme);
 
         return Rs::p(1,'Filme atualizado',$filme);
     }
@@ -93,11 +88,9 @@ class FilmesController extends Controller
         $m = new MongoClient();
         $collection = $m->selectDB('apifilmes')->selectCollection('filmes');
 
-        var_dump($film);
+        //$collection->remove(array('titulo'=>$film));
 
-        //var_dump($collection);
-
-        $collection->remove(array('titulo'=>$film));
+        $collection->remove(array('_id' => new MongoId($film)));
 
         return Rs::p(1,'Filme deletado',$film);
     }
