@@ -1,6 +1,6 @@
 # Api de Filmes
 
-  Api feito em php com o banco relacional, MongoDB.
+  Api feito em php com o banco não relacional, MongoDB.
 
 ## Funcionalidades:
 
