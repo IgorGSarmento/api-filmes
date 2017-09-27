@@ -63,14 +63,8 @@ class Filmes extends Collection {
             )
         );
 
-        // Validação da dta_estreia
-        
-        /*if($this->car_model_year < 0){
-            $this->appendMessage(new Message("Car's model year can not be zero."));
-        }
         if ($this->validationHasFailed() == true) {
             return false;
-        }*/
+        }
     }
-
 }

@@ -10,7 +10,7 @@ $filmes->get('/filmes/consultar/{filme}', 'show');
 $filmes->get('/filmes/consultar/{dtaI}/{dtaF}', 'showDta');
 $filmes->post('/filmes/adicionar', 'add');
 $filmes->put('/filmes/atualizar/{filme}', 'update');
-$filmes->delete('/filmes/deletar/{filme}', 'delete');
+$filmes->delete('/filmes/remover/{filme}', 'delete');
 
 $routes[] = $filmes;
 return $routes;
